@@ -4,9 +4,56 @@
     <title>Zona 2: Jejak Perjalanan Ottow & Geissler</title>
     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    
+    <style>
+        /* CSS untuk Info Box (Pengganti Alert) */
+        #info-box {
+            display: none; /* Sembunyikan saat awal */
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            z-index: 9999;
+        }
+
+        #info-box h3 {
+            margin: 0 0 10px 0;
+            color: #8B4513; /* Warna coklat kayu */
+        }
+
+        #info-box p {
+            margin: 0 0 15px 0;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .btn-close {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body style="margin : 0px; overflow: hidden;">
+
+    <div id="info-box">
+        <h3>5 Februari 1855</h3>
+        <p>Pendaratan Carl Wilhelm Ottow & Johann Gottlob Geissler di Pulau Mansinam. Misi penyebaran Injil dimulai, membawa transformasi bagi Tanah Papua.</p>
+        <button class="btn-close" onclick="tutupInfo()">Tutup</button>
+    </div>
 
     <a-scene
         vr-mode-ui="enabled: false;"
@@ -39,9 +86,27 @@
     </a-scene>
 
     <script>
-        // Saat layar di-klik (tap), munculkan pesan
+        // Fungsi untuk menampilkan info
         window.addEventListener('click', function () {
-            alert("✨ 5 Februari 1855: Pendaratan Ottow & Geissler di Pulau Mansinam.");
+            // Cek apakah info box sedang tertutup, jika ya, maka buka
+            var box = document.getElementById('info-box');
+            if (box.style.display === 'none' || box.style.display === '') {
+                box.style.display = 'block';
+            }
+        });
+
+        // Fungsi khusus untuk tombol tutup (agar tidak bentrok dengan klik layar)
+        function tutupInfo() {
+            // Kita gunakan setTimeout agar event click window tidak langsung membuka lagi
+            setTimeout(() => {
+                document.getElementById('info-box').style.display = 'none';
+            }, 100);
+        }
+        
+        // Mencegah klik tombol tembus ke layar belakang
+        document.querySelector('.btn-close').addEventListener('click', function(e){
+            e.stopPropagation();
+            tutupInfo();
         });
     </script>
 </body>
