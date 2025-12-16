@@ -4,25 +4,9 @@
     <title>Zona 2: Jejak Perjalanan Ottow & Geissler</title>
     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    
-    <style>
-        /* Loading screen sederhana agar user tahu sistem sedang memproses */
-        .arjs-loader {
-            height: 100%; width: 100%; position: absolute;
-            top: 0; left: 0; background-color: rgba(0, 0, 0, 0.8);
-            z-index: 9999; display: flex; justify-content: center; align-items: center;
-        }
-        .arjs-loader div {
-            text-align: center; font-size: 1.25em; color: white; font-family: sans-serif;
-        }
-    </style>
 </head>
 
 <body style="margin : 0px; overflow: hidden;">
-    
-    <div class="arjs-loader">
-        <div>Sedang memuat Peta Mansinam...<br>Arahkan kamera ke Peta.</div>
-    </div>
 
     <a-scene
         vr-mode-ui="enabled: false;"
@@ -31,8 +15,7 @@
         arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
 
         <a-assets>
-            <a-asset-item id="model-kapal" src="./kapal.glb"></a-asset-item> 
-            <audio id="sound-narasi" src="./narasi.mp3" preload="auto"></audio>
+            <a-asset-item id="model-kapal" src="./Untitled.glb"></a-asset-item> 
         </a-assets>
 
         <a-nft
@@ -47,8 +30,7 @@
                 gltf-model="#model-kapal"
                 scale="5 5 5" 
                 position="0 0 0"
-                rotation="-90 0 0"
-                class="clickable">
+                rotation="-90 0 0">
             </a-entity>
             
         </a-nft>
@@ -57,20 +39,9 @@
     </a-scene>
 
     <script>
-        // Saat marker peta terdeteksi, loading hilang
-        window.addEventListener('arjs-nft-loaded', function(ev){
-            console.log('Peta ditemukan!');
-            document.querySelector('.arjs-loader').style.display = 'none';
-        })
-
-        // Interaksi Tap Layar
+        // Saat layar di-klik (tap), munculkan pesan
         window.addEventListener('click', function () {
-            // 1. Mainkan Audio
-            var entity = document.querySelector('#sound-narasi');
-            entity.play();
-
-            // 2. Tampilkan Pop-up Info (Visual Output)
-            alert("✨ 5 Februari 1855: Pendaratan Ottow & Geissler di Pulau Mansinam. Misi penyebaran Injil dimulai.");
+            alert("✨ 5 Februari 1855: Pendaratan Ottow & Geissler di Pulau Mansinam.");
         });
     </script>
 </body>
